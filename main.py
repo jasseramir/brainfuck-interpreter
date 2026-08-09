@@ -1,3 +1,21 @@
+def validate(code):
+    stack = []
+
+    for char in code:
+        if char == "]" and len(stack) == 0:
+            return {"has_syntax_err": True, "err_type": "Unmatched ']'"}
+
+        if char == "[":
+            stack.append(char)
+        elif char == "]":
+            stack.pop()
+
+    return (
+        {"has_syntax_err": True, "err_type": f"Unmatched '{stack[-1]}'"}
+        if len(stack) != 0
+        else {"has_syntax_err": False}
+    )
+
 def compile(code):
     valid = "><+-[].,"
     clean = [char for char in code if char in valid]
