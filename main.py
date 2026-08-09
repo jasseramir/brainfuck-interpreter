@@ -20,6 +20,26 @@ def compile(code):
     valid = "><+-[].,"
     clean = [char for char in code if char in valid]
 
+    validation = validate(code)
+
+    if validation["has_syntax_err"]:
+        raise SyntaxError(validation["err_type"])
+
+    stack = []
+    jumps = {}
+
+    for i in range(len(clean)):
+        char = clean[i]
+
+        if char == "[":
+            stack.append(i)
+
+        if char == "]":
+           start = stack.pop()
+
+           jumps[start] = i
+           jumps[i] = start
+
     pointer = 0
     output = ""
 
