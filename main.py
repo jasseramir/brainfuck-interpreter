@@ -20,7 +20,7 @@ def compile(code):
     valid = "><+-[].,"
     clean = [char for char in code if char in valid]
 
-    validation = validate(code)
+    validation = validate(clean)
 
     if validation["has_syntax_err"]:
         raise SyntaxError(validation["err_type"])
