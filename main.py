@@ -43,7 +43,7 @@ def compile(code):
     pointer = 0
     output = ""
 
-    tape = [0]
+    tape = [0] * 30000
 
     i = 0
 
@@ -54,7 +54,6 @@ def compile(code):
                 if pointer + 1 >= 30000:
                     raise IndexError("Out of range (Right)")
 
-                tape.append(0)
                 pointer += 1
 
             case "<":
