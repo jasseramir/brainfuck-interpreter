@@ -73,9 +73,13 @@ def compile(code):
                 tape[pointer] = ord(char)
 
             case "[":
-                
+                if (tape[pointer] == 0):
+                    i = jumps[i]
+
             case "]":
-                
+                if tape[pointer] != 0:
+                    i = jumps[i]
+
         i += 1
 
     return output
