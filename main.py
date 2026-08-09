@@ -50,10 +50,17 @@ def compile(code):
     while i < len(clean):
         match clean[i]:
             case ">":
+                # Max memory size: 30,000 cells
+                if pointer + 1 >= 30000:
+                    raise IndexError("Out of range (Right)")
+
                 tape.append(0)
                 pointer += 1
 
             case "<":
+                if pointer - 1 < 0:
+                    raise IndexError("Out of range (Left)")
+
                 pointer -= 1
 
             case "+":
@@ -68,7 +75,14 @@ def compile(code):
             case ",":
                 char = input("Enter a character:")
 
+                if not char:
+                    raise RuntimeError("Insufficient input")
+
                 char = char[0]
+
+                # Max cell value: 255
+                if ord(char) > 255:
+                    raise RuntimeError("Can't save this type of character")
 
                 tape[pointer] = ord(char)
 
